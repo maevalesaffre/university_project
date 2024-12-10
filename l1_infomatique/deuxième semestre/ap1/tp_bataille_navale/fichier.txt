@@ -1,0 +1,4 @@
+maya, jeu jeu1.txt, nombre de coups:0
+maya, jeu jeu1.txt, nombre de coups:0
+
+

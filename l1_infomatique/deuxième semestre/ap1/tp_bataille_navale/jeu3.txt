@@ -1,0 +1,6 @@
+15 : 20
+porte-avion : 10   
+croiseur : 6
+contre-torpilleur : 4
+sous-marin : 7
+torpilleur : 2
