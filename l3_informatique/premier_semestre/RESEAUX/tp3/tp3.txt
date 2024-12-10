@@ -1,0 +1,27 @@
+#Lesaffre maeva
+#TP2
+##1 :
+--------
+
+
+Q1/-- On met un connect (via le handshake), le serveur accepte la connexion puis il envoie le message vers l'output du socket client.
+
+Q2/-- On doit traiter une IOException pour donner l'auto à l'admin du serveur de bien traiter.
+
+Q3/-- On peut se connecter au serveur via un client netcat ou telnet : nc <ip_serv> <port>
+
+Q4/-- créer une liste dans laquelle on stocke les sockets.
+
+##2 :
+--------
+Q1/-- Créer un thread à chaque accept, chaque thread va pouvoir s'occuper d'un socket en particulier.
+
+Q2/-- OutputStream output;
+	  output = socket.getOutputStream();
+	  PrintWriter writer = new PrintWriter(output, true);
+	  writer.println();
+	
+Q3/-- Ecrire sur l'output de tous les threads qui sont dans la structure de données.
+
+
+Q4/-- Avec une strucuture de données de type liste qui va stocker l'ensemble des sockets.s

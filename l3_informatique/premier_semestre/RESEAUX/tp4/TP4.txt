@@ -1,0 +1,126 @@
+
+
+1/ 
+Iface : eth1, 
+IPV4 : 192.168.5.69/24
+IPV6 : fe80::e654:e8ff:fe59:67fb/64
+MAC : e4:54:e8:59:67:fb
+
+2/ 
+Vitesse : 1000Mb/s c'est la vitesse max supporté pas l'iface
+Mode duplex : Full Duplex
+Iface up : oui car on remarque avec ip a show que eth1 est up.
+
+3/
+Classe : C (car elle commence par 110)
+Masque : c'est une adresse en /24
+Addr CIDR : 192.168.5.69/24
+Broadcast : 192.168.5.255
+Nombre d'host max : (2^8) -2 = 254 hosts car on a une partie machine de 1 octet.
+Routable en local : oui car c'est une addr locale
+Routable sur internet : non, car c'est une addr privé (on doit donc passer par un NAT)
+
+4/
+full IPV6: fe80:0000:0000:0000:e654:e8ff:fe59:67fb
+Masque : FFFF:FFFF:FFFF:FFFF:0000:0000:0000:0000
+Nombre d'host : (2^64) -2 = 18446744073709551614 hosts
+Routable en local : Oui car addr locale
+Routable sur internet : Non il faut passer un NAT
+Scope : Adresse locale lien
+
+Gateway : 192.168.5.1
+
+5/
+IPV4: ping <addr_ipv4_voisin> pour vérifier la connectivité IPV4
+IPV6: ping <addr_ipv6_voisin> -I eth1
+
+6/ ip.dst == <mon_ip>
+
+
+7/ ICMP pour ipv4 et ICPMV6 pour ip V6
+Request :
+Type : 8 (Echo ping request)
+Code : 0
+
+Reply : 
+Type : 0 (Echo ping reply)
+Code : 0
+
+8/
+
+
+9/
+Adresse de dest : Addr de broadcast 
+on pose la question Who has
+
+12/
+Ethernet -> couche 2
+
+IP -> couche 3
+
+ICMP -> couche 3
+
+13/
+L'adresse MAC étant unique, elle est souvent utilisée dans le filtrage de connexion à une borne WiFi par exemple. C'est en effet le moyen le plus efficace de bloquer l'accès à un appareil, plutôt que de bloquer une adresse IP qui pourra facilement être modifiée.
+
+
+Point à point:
+
+1/ On utilise des cables droits pour se connecter.
+
+2/ On utilise ip a show et ethtool 
+
+4/ On remarque une ligne qui s'est ajouté dans la table lorsqu'on a ajouté l'ip à l'interface.
+
+Concentrateur:
+
+1/ le signal émit sur un hub est réémis sur les autres machines. Non on ne recoit pas l'info envoyé (pas de retour de signal)
+
+2/ Mode promiscious -> mode espion qui décode tout ce qui est sur le fil
+
+3/ Half Duplex. Communication à l'alternat
+
+4/ Topo visuelle : étoile
+ Topo Logique : Bus
+
+5/ Une seule trame peut circuler sur le fil, sinon il risque d'y avoir des collisions.
+Les datas sont retransmises. La bande passante est partagé.
+
+Switch: 
+
+1/ On remarque qu'une request ne peut pas être recup par un 3eme poste. 
+
+2/ On est en full duplex. On peut envoyer et recevoir en même temps
+
+3/ Topologie visuelle et logique en étoile.
+
+4/ Plus aucunes collision, la bande passante n'est plus partagé.
+
+5/ Va lire l'addr source de la trame ethernet et la fait correspondre au port d'entrée 
+La table de commutation associe à chaque port de switch une liste d'addr MAC des ifaces qui lui sont connectées directement ou indirectement
+Grace à la table de commutation le switch simule une liaison points à points.
+(Il ne peut pas lire les addresses IP, car il agit au niveau 2 aka la couche liaison)
+
+7/ Avantage du switch par rapport au hub :
+
+Pas de collision
+Plus rapide (en général)
+Meilleure sécurité
+
+8/ 
+
+Router
+
+sous rsx -> 172.30.0.0/16
+ 172.31.0.0/16
+
+Q3/ le champ ttl et decrémenté par le routeur.
+
+Q4/ On doit fixer le TTL à 1. Le routeur send en retour un message ICMP de type 11 (TTL exceeded)
+
+
+Q6/ On vérifie dans la table de routage dans un premier temps, puis au protocole ARP.
+
+Q7/ cf schéma
+
+Q8/ On ne peut pas envoyer des messages en broadcast sur un autre sous réseau.

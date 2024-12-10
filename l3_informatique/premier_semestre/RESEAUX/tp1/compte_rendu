@@ -1,0 +1,91 @@
+#Lesaffre maeva
+#TP1
+##UDP
+------
+
+3/-- on voit notre socket dans la liste.
+
+6/-- l'adresse ip et le port de du destinataire 
+
+8/-- il est préferable de choisir les 2, tous les ports sont attribués à un service.
+
+10/-- status
+ Id  Proto   Local address              Remote address             TYPE  RWX ?
+ ---------------------------------------------------------------------------
+ 3   UDP U   *(38825)                   -                          ipv4  .W.
+>4   UDP U   *(36629)
+
+15-a/-- information manquante sur le diagramme (voir photo diagramme.q15)
+	a droite: adresse ip 127.0.0.1 ( adresse loopback)
+		  port UDP 38825 
+	message "comment allee vous?"
+	
+	a gauche: adresse ip 127.0.0.1 ( adresse loopback)
+                  port UDP 36629
+	et pour le deuxieme envoie 
+	
+	a droite: adresse ip 127.0.0.1 ( adresse loopback)
+                  port UDP 36629
+        message "tres bien. merci!"(avec un fleche de droite a gauche)
+  
+        a gauche: adresse ip 127.0.0.1 ( adresse loopback)
+                  port UDP 38825
+
+15-c/ deux paquets ont été envoyés, En analysant ces derniers, dans la partie UDP des paquets les ports que l'on a dans Socklab.
+
+15-d/--	18/60 = 0.3 ( pour le premier envoie)
+	 16/58 = 0.276 ( pour le 2eme envoie)
+ On envoit un segment par message (si 3 messages => 3 segments)
+ On envoit beaucoup d'octets au total pour quelques données envoyées.
+
+##TCP
+------
+
+4/-- la connexion est refusée.
+
+6/-- la socket serveur est la s2 (c'est celle a qui on se connecte) tandis que la s1 est le client.
+
+7/-- on voit les different messages et ack et que la connection est bien possible, il s'agit donc d'attendre qu'elle soit acceptée.
+---- 3 paquets:
+- S1 envoit un paquet contenant le flag SYN (lancer la connexion)
+
+- S2 envoit à son tour un paquet SYN-ACK (informer le client que la connexion a été validé et que S1 peut commencer une connexion)
+
+- S3 va à son tour envoyer un paquet ACK 
+
+9/-- >5   TCP     127.0.0.1(4000)            127.0.0.1(3000)            ipv4  .W.
+	une nouvelle socket est crée pour communiquer avec s1
+
+11-a/-- Le flag PSH va permettre à envoyer les données même si le tampon n'est pas rempli.
+11-b/-- SEQ = taille totale d'éléments envoyés durant la session courante
+11-c/-- ACK va être envoyer par le serveur pour assurer qu'il ait bien récupérer les données envoyées par le client.
+11-d/--20 -1 = 19 = taille du message envoyé par le client.
+
+12/-- 19
+
+13/--c'est l'identifiant de socket renvoyé pas la commande accept
+
+14/--0
+
+
+15/--La commande shutdown 3 out met fin à la connexion entre S1 et S2 et en sortie seulement. Cela veux dire que S1 qui envoit un paquet avec les flags FIN et S2 qui 
+réponds FIN ACK. C'est la fin de la communication, S2 lui tjrs possible d'envoyer à S1.
+
+
+
+18-a/-- cf schéma
+18-b/-- 7 segments transmis au total ==> + que UDP
+18-c/-- si on prend en compte le handshake, 365 octets (sans la fermeture de connexion). On doit envoyer beaucoup plus via TCP que via UDP pour un même message.
+
+
+##Retransmissions et contrôle de flux
+------------------------------------------
+
+3-/ le message est envoyé mais ne se reflète sur wireshark.
+
+4-/ les messages qui n'apparaisaient pas sont désormais visible.
+
+6-/ on constate qu'il y a bcp plus d'octet envoyézs que d'octet reçu.
+       
+
+

@@ -1,0 +1,9 @@
+compiler
+javac -sourcepath src ./src/exo1/*.java -d ./classes/
+côté receive
+1
+java -classpath classes exo1.ReceiveUDP 4444 "rmr"
+
+2
+côté Send 
+java -classpath classes exo1.SendUDP 4444 "localhost"

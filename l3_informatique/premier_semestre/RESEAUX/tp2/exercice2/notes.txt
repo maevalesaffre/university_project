@@ -1,0 +1,4 @@
+2-client : Le cas où il reconnait pas address (exemple il va reconnzitre facebook, google etc)
+UnknowHostException 
+idem pour le côté server
+
