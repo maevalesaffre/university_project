@@ -1,0 +1,37 @@
+-- RENDU TDM4
+--LESAFFRE Maeva
+--KERNOUF Sabrina 
+--GROUPE 6A
+
+--EXO1
+--Q1
+select *,ceil(superficie/5) as cat_sup from communes;
+
+--Q2
+select ceil(superficie/5) as cat_sup,count(*) as nb_communes from communes group by cat_sup order by cat_sup asc;
+
+--Q3
+select communes.*,trunc(superficie/5)+1 as cat_sup,trunc(pop_totale/1000)+1 as cat_pop,pop_totale as pop_2016 from communes natural join population where recensement=2016;
+
+--Q4
+select ceil(pop_totale/1000) as cat_pop, count(*) as nb_par_categorie, round(min(superficie),2) as superficie_minimale,round(max(superficie),2) as superficie_maximale, round(avg(superficie),2) as superficie_moyenne from communes natural join population group by cat_pop,superficie order by cat_pop asc;
+
+
+select ceil(superficie/5) as cat_sup, count(*) as nb_communes, round(avg(superficie),2) as superficie_moyenne, round(min(superficie),2) as superficie_minimum,round(max(superficie),2) as superficie_maximum from communes group by cat_sup having count(*)>5 order by nb_communes desc;
+
+--EXO2
+--Q1
+create view com_pop as select communes.*, trunc(superficie/5)+1 as cat_sup, trunc(pop_totale/1000)+1 as cat_pop, pop_totale as pop_2016 from communes natural join population where recensement=2016;
+
+dropview com_pop;
+
+create or replace view comm_2012 as select trunc(pop_totale/1000)+1 as cat_pop, count(*) as nb_communes,min(superficie) as min_sup,max(superficie) as max_sup, round(avg(superficie),2) as moy_sup from communes natural join population group by cat_pop order by cat_pop asc;
+
+--EXO3
+SELECT table_pop_2016.insee,table_pop_2016.nom, table_pop_2016.pop_totale AS pop_2016,table_pop_2012.pop_totale AS pop_2012,(table_pop_2016.pop_totale-table_pop_2012.pop_totale) AS prog,(CAST(table_pop_2016.pop_totale AS float)-CAST(table_pop_2012.pop_totale AS float))/CAST(table_pop_2012.pop_totale as float)*100 as pourcentage_prog FROM (SELECT insee, nom, pop_totale FROM communes NATURAL JOIN population WHERE recensement = 2016) AS table_pop_2016 JOIN (SELECT insee, nom, pop_totale FROM communes NATURAL JOIN population WHERE recensement = 2012) AS table_pop_2012 ON table_pop_2016.insee=table_pop_2012.insee
+
+
+
+
+
+

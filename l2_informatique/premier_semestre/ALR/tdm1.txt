@@ -1,0 +1,56 @@
+ALR
+TD machine 1:
+1. Expression rationelle:
+[A-Z][a-zA-Z]+
+Mots appartenants: Rdfo, AzeFfR, FrThl
+Mots n'appartenant pas: erodD, forTf, ftogp
+
+2. Expression rationelle:
+[+]33\s[1-9][0-9]{8}
+ou (\+33\s[1-9][0-9]{8})
+Mots appartenants: +33 122334567, +33 473804631
+Mots n'appartenant pas: 436867908, +33 045673859
+
+3. Expression rationelle:
+[02][1-9]|[13-8][0-9]|[9][0-5]|(2A|2B)|97[1-6]
+Mots appartenants:2A,974,21
+Mots n'appartenant pas:977,20,7
+
+4. Expression rationelle:
+[a-zA-Z](_?[a-zA-Z0-9])*
+Mots appartenants: Cours_info
+Mots n'appartenant pas: _greg ; Cours_info ; Cours_
+
+5. Expression rationelle:
+0(_?[0-7])*|0x(_?[0-9A-Fa-f])*|[1-9](_?[0-9])*
+Mots appartenants:PxA_d4, 0879, 04_1
+Mots n'appartenant pas: 256_.OxZ
+
+6. Expression rationelle:
+\s*[a-zA-Z](_?[a-zA-Z0-9])*(_s*,\s*[a-zA-Z](_?[a-zA-Z](_?[a-zA-z0-9])*)*
+Mots appartenants:toto;toto ,titi; toto
+Mots n'appartenant pas:toto ,
+
+7. Expression rationelle:
+"[^"]*"
+Mots appartenants: "a",
+Mots n'appartenant pas: "a"b"
+
+8. Expression rationelle:
+"(""|[^"])*"
+Mots appartenants: "ab""c", """"
+Mots n'appartenant pas: "a"b"
+
+9. Expression rationelle:
+"([^"\\]|\\"|\\\\)*"
+Mots appartenants: "a\\b\"c", "\\\""
+Mots n'appartenant pas: "a"b", "a\c", "a\"
+
+10. Expression rationelle:
+[a-zA-Z:_][a-zA-Z:_0-9-]*
+
+11. Expression rationelle:
+&[a-zA-Z:_][a-zA-Z:_0-9-]*;
+
+12. Expression rationelle:
+("&[a-zA-Z:_][a-zA-Z:_0-9-]*;")|("[a-zA-Z:_][a-zA-Z:_0-9-]*")

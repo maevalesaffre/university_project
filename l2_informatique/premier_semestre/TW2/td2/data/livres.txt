@@ -1,0 +1,38 @@
+couverture : dune.jpg
+titre : Dune
+auteurs : Frank Herbert
+annee : 1965
+categorie : science-fiction
+
+couverture : tony-chu.jpg
+titre : Goût décès
+serie : Tony Chu - Détective Cannibale
+auteurs : John Layman - Rob Guillory
+annee : 2010
+categorie : bandes-dessinées
+
+couverture : seigneur-des-anneaux.png
+titre : Le seigneur des anneaux
+auteurs : JRR Tolkien
+annee : 1954
+categorie : fantasy
+
+couverture : fils-des-brumes.jpg
+titre : L'empire ultime
+serie : Fils des brumes
+auteurs : Brandon Sanderson
+annee : 2006
+categorie : fantasy
+
+couverture : scorpion.jpg
+titre : La marque du diable
+serie : Le Scorpion
+auteurs : Marini - Desberg
+annee : 2000
+categorie : bandes-dessinées
+
+couverture : miles-vorkosigan.jpg
+titre : Miles Vorkosigan
+auteurs : Lois McMaster Bujold
+annee : 1986
+categorie : science-fiction

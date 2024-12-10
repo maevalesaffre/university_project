@@ -1,0 +1,41 @@
+exo1
+select * from mesures_mensuelles where code_polluant='20' and valeur>0.1;
+
+select count(*) as nombre_mesure from mesures_mensuelles where code_polluant='20' and valeur>0.1;
+
+select nom_polluant, count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by nom_polluant order by count(*) desc;
+
+select code_polluant, count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by code_polluant having count(*) is not null;
+
+select nom_polluant,code_polluant,count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by nom_polluant,code_polluant having count(*) is not null;
+
+select code_polluant, count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by code_polluant,valeur having count(*)>='15' and valeur>0.1;
+
+select nom_polluant, count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by nom_polluant,valeur having count(*)>='15' and valeur>0.1;
+
+select code_polluant,count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by code_polluant having count(*) is null
+
+select nom_polluant,count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by nom_polluant having count(*) is null
+
+select nom_polluant,count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by code_polluant,valeur having count(*) is null and valeur>0.1
+
+EXO2
+select * from mesures_mensuelles where code_polluant='10' and valeur>=0.2;
+
+select count(*) from mesures_mensuelles where code_polluant='10' and valeur>=0.2;
+
+select nom_polluant, count(*) as nombre_total from mesures_mensuelles natural join polluants group by nom_polluant order by count(*) desc;
+
+select code_polluant from polluants natural join mesures_mensuelles group by code_polluant having count(*) is not null;
+
+select code_polluant,nom_polluant from polluants natural join mesures_mensuelles group by code_polluant,nom_polluant having count(*) is not null;
+
+select code_polluant from mesures_mensuelles group by code_polluant,valeur having count(*)>='5' and valeur>=0.2;
+
+select nom_polluant from mesures_mensuelles natural join polluants group by nom_polluant,valeur having count(*)>='5' and valeur>=0.2;
+
+select code_polluant from mesures_mensuelles group by code_polluant having count(*) is null;
+
+select nom_polluant,count(*) as nombre_mesure from mesures_mensuelles natural join polluants group by nom_polluant having count(*) is null;
+
+select distinct nom_polluant from mesures_mensuelles natural join polluants group by nom_polluant,valeur having valeur>=0.2;

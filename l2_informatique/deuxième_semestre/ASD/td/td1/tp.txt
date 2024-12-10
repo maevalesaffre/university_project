@@ -1,0 +1,29 @@
+Marqueurs
+m0, m5, m3, m2, m4, m1 (n)
+
+Positifs (p)
+m2, m0
+
+Negatifs ??
+m5, m3, m4, m1
+
+--> stratégie où ni le tableau de marqueurs ni le tableau positifs ne sont triés
+
+--> stratégie où le tableau positifs est trié
+(trier positifs avec sorting.py et puis implementer une recherche par dichotomie sur le tableau positifs ainsi trié.
+la dichotomie a une complexité en log n.
+cf. TD pour des grands valeurs de n, log n <<<< n <- complexité d'une recherche itérative )
+Positifs
+m0, m1, m6, m10
+
+--> stratégie où le tableau positifs est trié et le tableau de marqueurs est trié également
+Marqueurs (n)
+m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10
+Positifs (p)
+m0, m1, m6, m10
+(similaire à la fusion dans tri par fusion... )  
+Negatifs (n)
+m2, m3, m4, m5, m7, m8, m9
+
+
+

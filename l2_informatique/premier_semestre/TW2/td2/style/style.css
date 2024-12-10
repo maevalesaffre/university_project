@@ -1,0 +1,58 @@
+header, article{
+  background-color:rgba(128,255,128,0.3);
+  height: 90%;
+  width: 90%;
+  margin:auto;
+}
+header{
+  margin-bottom: 10px;
+      }
+
+.description .titre{
+  display: inline-block;
+  font-size: 18px; 
+  }
+
+
+article {
+  background-color: aliceblue ;
+  width: 200px;
+  height: 400px;
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+  vertical-align:top;
+  box-shadow: 0px 0px 4px 2px rgba(200,120,120,0.6);
+  border: solid thin lightgrey;
+        }
+
+
+div.serie{
+  font-style:italic;
+  font-size: smaller;
+  color: grey;
+}
+.auteurs {font-style:italic;
+              color: rgb(39, 41, 45);}
+
+.couverture{
+  background-color: lightgrey;
+  height: 70%;
+  padding:5px;
+  border: solid thin white;
+  }
+time{color:rgb(80, 76, 77);
+}
+
+img{
+  height: 100%;
+  width: 100%;
+}
+
+div.auteurs span{
+  display: inline-block
+      }
+
+.couverture :hover
+{box-shadow: 0px 0px 4px 4px rgba(100,20,20,0.6);
+transform : scale(1.05);}

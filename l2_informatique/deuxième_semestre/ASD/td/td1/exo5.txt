@@ -1,0 +1,53 @@
+== F
+T=[0 1 3 4 5 6]
+V=4
+
+Combien d’opérations d'addition?
+i=0, 0>4 -> 0 op
+i=1, 1>4 -> 0 op
+i=2, 3>4 -> 0 op
+i=3, 4>4 -> 0 op
+i=4, 5>4 -> 1 op
+i=4, 6>4 -> 1 op
+
+Pour cet exemple, on a fait 2 opérations.
+
+Dans le meilleur cas on fera 0 opérations 
+(v sup. à tous les éléments de t)
+
+Dans le pire cas on fera n opérations.
+(v inf. ou égal à tous les éléments de t) 
+
+Cas habituel/moyen n'est pas forcement : (cas pire + cas meilleur)/2
+
+Pour évaluer le cas moyen, il faut évaluer la probabilité (en général)
+de se trouver dans une situation où e > v.
+Ici, comme on compare 2 nombres (à priori aléatoire car aucune connaissance 
+dessus), on peut supposer que la probabilité de rentrer dans le if est de (1/2)
+
+Cas moyen avec une probabilité de 1/2 on fait faire l'opération dans le cadre d'une itération de 1 à n.
+Cas moyen = 1/2 * n
+
+Cas meilleur <= Cas moyen <= Cas pire
+
+== G
+
+Meilleur cas:
+* 5 3 1 0 -> 0 opérations -> tableau trié de manière descendante on va effectuer
+0 opérations, car B < A... et la condition reclame que t[i] soit compris entre A et b
+
+-- De manière plus générale, l'ordre des éléments n'est pas très important tant que 
+le max se trouve sur la première position et le min sur la dernière.
+Ce qui fera qu'aucun t[i] sera compris entre B et A
+
+Pire cas:
+-- De manière plus générale, l'ordre des éléments n'est pas très important tant que 
+le max se trouve sur la dernière position et le min sur la première.
+Ce qui fera que tout t[i] sera compris entre A et B
+
+* 
+*
+*
+*
+
+

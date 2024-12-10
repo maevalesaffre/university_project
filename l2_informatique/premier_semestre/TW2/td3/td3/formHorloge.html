@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Horloge</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="" />
+        <script src="checkbox.js"></script>
+        <style>
+            form input[name='bg']:disabled{
+                color : lightgrey;
+                opacity : 0.2;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Formulaire Horloge</h1>
+        </header>
+
+        <form action="horloge.php">
+          <fieldset>
+            <legend>Heure</legend>
+            <label>Heures : <input type="number" name="hours" min='0' max='23' step='1' /></label><br />
+            <label>Minutes : <input type="number" name="minutes" min='0' max='59' step='1' /></label><br />
+            <label>Secondes : <input type="number" name="seconds" min='0' max='59' step='1' /></label><br />
+          </fieldset>
+          
+          <fieldset>
+            <legend>Choix des couleurs</legend>
+            <label>Couleur des aiguilles : <input type="color" name="hands" value="#252422" /></label><br />
+            <label>Fond : <input id="ColorBg" type="color" name="bg" value="#FFFCF2" disabled="" /></label>
+            <label>Transparent : <input type="checkbox" name="bg" value="transparent" checked="true" onchange="doalert(this)"/></label><br />
+            <label>Structure de l'horloge : <input type="color" name="markers" value="#CCC5B9" /></label><br />
+          </fieldset>
+          <button type="submit">Envoyer</button>
+        </form>
+
+    </body>
+
+</html>

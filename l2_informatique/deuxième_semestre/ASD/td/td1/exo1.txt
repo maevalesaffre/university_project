@@ -1,0 +1,239 @@
+Exercice 1/
+
+A/
+def f1 (n): 
+    r=0 
+    for i in range(1,n+1):           <--- (n+1) -> 1 op 1 fois
+        for j in range(1,n+1):           <--- (n+1) -> 1 op autant de fois que la boucle i 
+            r=r+3                            <-- (r+3) -> 1 op autant de fois que la boucle j 
+                                                            (autant de fois que la boucle i)
+    return r
+
+nb_total = 1 + nb_fois_boucle_i*(1 + nb_fois_boucle_j*(1))
+
+pour n=5
+i = 1
+  j = 1 2 3 4 5
+
+i=2
+  j = 1 2 3 4 5
+
+i=3
+  j = 1 2 3 4 5
+
+...
+
+nb_fois_boucle_j = n
+nb_fois_boucle_i = n
+
+==> nb_total = 1 + n*(1+n*1) = 1 + n + n^2 ... est de l'ordre de n^2
+
+Attention - for j in range(1, n+1) -> selon l'intrepreteur l'opération n+1 ne sera faite qu'une fois 
+car elle ne change pas entre deux itérations
+dans ce cas la, nb_total = 1 + 1 (le range dans for j) + nb_fois_boucle_i*(nb_fois_boucle_j*(1))
+   ==> nb_total = 2 + n^2  ... est de l'ordre de n^2
+
+
+en python : for i in range(1,n+1) -> for i in [1, 2, 3, 4, ..., n+1], dans le for on va parcourir les élements du tableau
+sans faire d'addition
+
+en java : for (int i=1; i<n+1; i=i+1) --> ici, il y aura bien n additions
+
+B/
+def f2 (n): 
+    r=0 
+    for i in range(1,n+1):           <--- (n+1) -> 1 op 1 fois
+        for j in range(1,i+1):           <--- (i+1) -> 1 op autant de fois que la boucle i 
+            r=r+3                            <-- (r+3) -> 1 op autant de fois que la boucle j 
+                                                            (autant de fois que la boucle i)
+    return r
+
+pour n=5
+i = 1 -> range (1,1+1) -> [1]
+  j = 1 
+
+i=2 -> range (1,2+1) -> [1 2]
+  j = 1 2
+
+i=3 -> range (1,3+1) -> [1 2 3]
+  j = 1 2 3 
+
+...
+
+nb_fois_boucle_j = i
+nb_fois_boucle_i = n
+
+==> nb_total = 1  
+     (i=1)        + 1 (range) + 1 (r+3 car j = [1] nb_fois_boucle_j=1)
+     (i=2)        + 1 (range) + 2 (r+3 car j = [1 2] nb_fois_boucle_j=2)
+     (i=3)        + 1 (range) + 3 (r+3 car j = [1 2 3] nb_fois_boucle_j=3)
+     ....
+     (i=n)        + 1 (range) + n (r+3 car j= [1 2 ... n] nb_fois_boucle_j=n)
+
+==> nb_fois_boucle_j=i
+    nb_total = 1 + somme_selon_i_de_1_à_n (1+ nb_fois_boucle_j(i))
+             = 1 + somme_selon_i_de_1_à_n (1) + somme_selon_i_de_1_à_n (i)
+             = 1 + 1*n + n*(n+1)/2  ... de l'ordre n^2
+
+somme_selon_i_de_1_à_n (i) = 1 + 2 + 3 + ... + n = n(n+1)/2
+
+C/
+def f3 (n): 
+    r=0
+    for i in range(5,n−5+1):
+        for j in range(i−5,i+5+1):
+            r=r+3
+    return r
+
+nb_total = 1  (range (5,n-5+1))
+    (i = 5)     + 2 (range (i-5,i+5+1) ) + 1 (r+3) * 11 (range(0,11) : [0 ... 10] -> 11)
+    (i = 6)     + 2 (range (i-5,i+5+1) ) + 1 (r+3) * 11 (range (1,12) -> 11)
+    (i = 7)     + 2 (range (i-5,i+5+1) ) + 1 (r+3) * 11 (range (2,13) -> 11)
+    ...
+    (i = n-5) + 2 (range (i-5,i+5+1))  + 1 (r+3) * 11 (range (n-5-5,n-5+5+1) .. range (n-10,n+1) -> 11)
+
+nb_total = 1 + somme_selon_i_de_5_à_n-5 (2 + 1*11) 
+            = 1 + 13*somme_selon_i_de_5_à_n-5 (1) 
+            = 1+13*(n-10) ... si n >=10 et 1 sinon
+
+le nb_total est de l'ordre de n
+
+D/ f4:
+def f4 (n): 
+    r=0 
+    for i in range(1,n+1):  
+        for j in range(1,n+1):
+	        for k in range(1,n+1)
+            	r=r+3                            
+    return r
+
+nb_total = 1 + nb_fois_boucle_i*(1 + nb_fois_boucle_j*(1+nb_fois_boucle_k*(1)))
+
+pour n = 3
+
+i = 1
+  j = 1 
+    k = 1 2 3
+  j = 2
+    k = 1 2 3
+  j = 3
+    k = 1 2 3
+
+i = 2
+  j = 1 
+    k = 1 2 3
+  j = 2
+    k = 1 2 3
+  j = 3
+    k = 1 2 3
+
+…
+
+nb_fois_boucle_k = n
+nb_fois_boucle_j = n
+nb_fois_boucle_i = n
+
+==> nb_total = 1 + n*(1+n*(1+n*1) = 1 + n*(1+n+n^2) = 1 + n + n^2 + n^3 ... est de l'ordre de n^3
+
+E/
+def f5 (n):
+   r = 0
+   for i in range(1,n+1):
+      for j in range (1,i+1):
+         for k in range(1,j+1):
+            r = r + 3
+   return r
+
+nb_total = 1 (range (1,n+1))
+    (i = 1)     + 1 (range (1,i+1 = 2)) +
+                        (j=1)           + 1 (range(1,j+1=2)) + 1 (r+3) * 1
+    (i = 2)     + 1 (range (1,i+1 = 3))
+                        (j=1)           + 1 (range(1,j+1=2)) + 1 (r+3) * 1
+                        (j=2)           + 1 (range(1,j+1=3)) + 1 (r+3) * 2
+    (i = 3)     + 1 (range (1,i+1 = 4))
+                        (j=1)           + 1 (range(1,j+1=2)) + 1 (r+3) * 1
+                        (j=2)           + 1 (range(1,j+1=3)) + 1 (r+3) * 2
+                        (j=3)           + 1 (range(1,j+1=4)) + 1 (r+3) * 3
+
+
+nb_total = 1 (range(1,i+1))+
+            nb_ops_de_for_j_pour_une_valueur_de_i=1+
+            nb_ops_de_for_j_pour_une_valueur_de_i=2+
+            .......
+
+nb_ops_de_for_j_pour_une_valueur_de_i=
+    1 (range(1,j+1))+
+        nb_ops_de_for_k_pour_une_valeur_de_j=1 +
+        nb_ops_de_for_k_pour_une_valeur_de_j=2 +
+        ...
+        nb_ops_de_for_k_pour_une_valeur_de_j=i (car j = [1 ... i])
+
+nb_ops_de_for_k_pour_une_valeur_de_j=
+    1 (range (1,j+1)) + 1 (r+3) * j ( car k dans range (1, j+1) = [1 ... k] )
+
+nb_ops_de_for_k_pour_une_valeur_de_j= 1+1*j
+
+nb_ops_de_for_j_pour_une_valueur_de_i = 
+    1 + somme_selon_j_de_1_à_i (nb_ops_de_for_k_pour_une_valeur_de_j)
+    = 1 + somme_selon_j_de_1_à_i(1+j) 
+    = 1 + somme_selon_j_de_1_à_i(1) + somme_selon_j_de_1_à_i(j)
+    = 1 + i + i*(i+1)/2
+
+nb_total = 1 + somme_selon_i_de_1_à_n (nb_ops_de_for_j_pour_une_valueur_de_i)
+        = 1 + somme_selon_i_de_1_à_n ( 1 + i + i*(i+1)/2)
+        = 1 + somme_selon_i_de_1_à_n (1) 
+            + somme_selon_i_de_1_à_n (i)
+            + somme_selon_i_de_1_à_n (i*i)/2
+            + somme_selon_i_de_1_à_n (i)/2
+        = 1 + n + n*(n+1)/2 + n(n+1)(2n+1)/6  + n*(n+1)/2/2
+        = ... -> l'ordre de n^3 
+
+
+F/ 
+def f6 (n):
+    r=0
+    i=n
+    while i > 1:
+        for j in range(1,i+1): 
+            r=r+3
+        i = i // 2
+    return r
+
+si n<1
+nb_total = 0
+
+supposons que n > 1
+nb_total = 
+    (i=n)       1 (range (1,n+1)) + 1 (r+3)*n (=i)
+    (i=n//2)    1 (range (1,n//2+1)) + 1 (r+3)*(n//2) (=i)
+    ...
+
+i=n
+i=4 (1+4), puis i=2 (1+2), puis i=1 (0)
+i=8 (1+8), puis i=4 (1+4), puis i=2 (1+2), puis i=1 (0)
+
+i = n // (2^k), ou k correspond au nombre d'itérations faites
+i=8/2^0, i=8/2^1, i = 8/2^2, i = 8/2^3
+
+pour quelle valeur de k on va s'arrêter ?
+i = 1 
+i = n / 2^k -> 1 = n / 2^k -> 2^k = n => log2(2^k)=log2n => 
+
+k = log2n
+
+nb_total = somme_selon_k_de_1_à_log2n (1 + n/2^k)
+        = somme_selon_k_de_1_à_log2n (1) + somme_selon_k_de_1_à_log2n (n/2^k)
+        = [log2n](partie entière) + (n/2^0 + n/2^1 + n/2^2+ ... + 1)
+        = [log2n](partie entière) + n*(1+1/2+1/4+...1/2^k) (<-- serie géométrique)
+        = [log2n](partie entière) + n*(1-(1/2)^(log2n))/(1-1/2) (=A)
+
+A=(1-(1/2)^(log2n))/(1-1/2) = A1/A2
+    A1=(1-(1/2)^k) = (2^k-1)/2^k
+    A2=(1-1/2)=1/2
+A=(2^k-1)/2^k/(1/2)=2*(2^k-1)/2^k
+2^k = n
+=> A=2*(n-1)/n
+
+        = [log2n](partie entière) + n*(2*(n-1))/n. 
+        = [log2n] + 2*(n-1)
+        (ouff...)

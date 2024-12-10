@@ -1,0 +1,175 @@
+TDM1
+q1-
+
+a-
+select nom,dossard from coureurs;
+
+b-
+select nom,dossard from coureurs order by dossard;
+
+c-
+select nom,dossard,equipe from coureurs order by equipe,nom;
+
+d-
+select nom,dossard,taille from coureurs order by taille;
+
+e-
+select nom,dossard from coureurs where equipe='LavePlusBlanc';
+
+f-
+select "nom", "dossard" from coureurs where equipe='LavePlusBlanc';
+
+g-
+select nom,taille,equipe from coureurs where taille>=180;
+
+h-
+select nom,taille,equipe from coureurs where taille>=180 order by taille;
+
+i-
+select couleur from equipes;
+
+q2-
+
+a-
+select nom || ' appartient a l''equipe' || equipe from coureurs;
+
+b-
+select nom || ' appartient a l''equipe' || equipe as  "appartenance" from coureurs;
+
+c-
+select upper(nom) as "nom maj",length(nom) as "lg" from coureurs;
+
+d-
+select upper(nom) as "nom maj",length(nom) as "lg" from coureurs order by length(nom);
+
+select upper(nom) as "nom maj",length(nom) as "lg" from coureurs order by "lg";
+
+e-
+select dossard,initcap(nom),upper(substr(equipe, 1, 3)) from coureurs;
+
+
+q3-
+a-
+select nom from coureurs where nom like 'a%';
+
+b-
+selaect nom from coureurs where nom like '%er%';
+
+c-
+select nom from coureurs where nom like '_____';
+
+d-
+select nom from coureurs where nom like '%a__';
+
+e-
+select nom from coureurs where nom like '%a__%';
+
+
+q4-
+select taille/100 from coureurs;
+(nous n'obtenons que des 1, nous avons divisé des nb entiers, le changement de type n'est pas automatique en float.
+
+select taille/100.0 from coureurs;
+(nous obtenons un grand chiffre après la virgule, notre résultat n'est pas un float mais un double.
+
+select cast(taille/100.0 as float) as "taille en mètre" from coureurs;
+
+select trunc (taille/100.0, 2) as "taille en mètre" from coureurs;
+
+TDM2 (suite du TDM1)
+
+q5-
+select * from coureurs join equipes on coureurs.nom=equipes.nom; 
+
+select coureurs.dossard, coureurs.nom, equipes.couleur from coureurs join equipes on coureurs.equipe=equipes.nom;
+
+select coureurs.nom, equipes.directeur from coureurs join equipes on coureurs.equipe=equipes.nom;
+
+select coureurs.nom, coureurs.dossard from coureurs join equipes on coureurs.equipe=equipes.nom where equipes.directeur= 'Ralph';
+
+select equipes.directeur from coureurs join equipes on coureurs.equipe=equipes.nom where coureurs.nom='alphonse':
+
+q6-
+insert into equipes values ('lesmeilleurs', 'argenté','nico');
+
+insert into coureurs values (8, 'Dorian', 'lesmeilleurs',170);
+insert into coureurs values (9, 'Madyson', 'lesmeilleurs',163);
+
+q7-
+select * from equipes where directeur is null;
+
+select * from equipes where directeur is not null;
+
+q8-
+update coureurs set taille=taille-1 where equipe='PicsouBank';
+
+update equipes set directeur='Alice' where directeur is null;
+
+
+
+TDM3
+q1-
+select insee,nom,superficie from communes order by superficie desc;
+
+select insee,nom from communes where nom like '%Lille%';
+
+select insee,substring(insee, 1,2) as "departement",nom from communes;
+
+select c.nom,p.recensement from communes c join population p on p.insee=c.insee order by c.nom desc, recensement asc;
+
+select p.insee, c.nom, p.pop_totale from communes c join population p on p.insee=c.insee where recensement=2016 order by pop_totale desc;
+
+select p.insee,c.nom,p.pop_totale, c.superficie, p.pop_totale/c.superficie as densite from communes c join population p on p.insee=c.insee where recensement=2016 order by densite desc;
+
+q2-
+select p.insee,c.nom,p.pop_totale, c.superficie, p.pop_totale/c.superficie as densite from communes c natural join population p where recensement=2016 order by densite desc;
+
+q3-
+select nom, nom_station,lon,lat from communes natural join stations order by nom;
+
+select nom, nom_station,lon,lat from communes left join stations on communes.insee=stations.insee order by nom;
+
+q4 
+select count(valeur) as nombre_total from mesures_mensuelles;
+
+select avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum from mesures_mensuelles where code_polluant=7;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum from mesures_mensuelles where code_polluant=7 group by code_station;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station as nom from mesures_mensuelles natural join stations where code_polluant=7 group by code_station,nom_station;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station as nom from mesures_mensuelles natural join stations where code_polluant=6001 group by code_station,nom_station;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station as nom from mesures_mensuelles natural join stations where code_polluant=6001 group by code_station, nom_station having avg(valeur)>>10;
+
+select code_station, code_polluant, count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum from mesures_mensuelles natural join stations group by code_station, code_polluant order by code_polluant;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station, nom_polluant from mesures_mensuelles natural join stations natural join polluants group by code_station, code_polluant, nom_station, nom_polluant order by code_polluant;
+
+TDM4
+EXO1
+select *,ceil(superficie/5) as cat_sup from communes;
+
+select ceil(superficie/5) as cat_sup,count(*) as nb_communes from communes group by cat_sup order by cat_sup asc;
+
+select communes.*,trunc(superficie/5)+1 as cat_sup,trunc(pop_totale/1000)+1 as cat_pop,pop_totale as pop_2016 from communes natural join population where recensement=2016;
+
+select ceil(pop_totale/1000) as cat_pop, count(*) as nb_par_categorie, round(min(superficie),2) as superficie_minimale,round(max(superficie),2) as superficie_maximale, round(avg(superficie),2) as superficie_moyenne from communes natural join population group by cat_pop,superficie order by cat_pop asc;
+
+select ceil(superficie/5) as cat_sup, count(*) as nb_communes, round(avg(superficie),2) as superficie_moyenne, round(min(superficie),2) as superficie_minimum,round(max(superficie),2) as superficie_maximum from communes group by cat_sup having count(*)>5 order by nb_communes desc;
+
+EXO2
+create view com_pop as select communes.*, trunc(superficie/5)+1 as cat_sup, trunc(pop_totale/1000)+1 as cat_pop, pop_totale as pop_2016 from communes natural join population where recensement=2016;
+
+dropview com_pop;
+
+create or replace view comm_2012 as select trunc(pop_totale/1000)+1 as cat_pop, count(*) as nb_communes,min(superficie) as min_sup,max(superficie) as max_sup, round(avg(superficie),2) as moy_sup from communes natural join population group by cat_pop order by cat_pop asc;
+
+EXO3
+SELECT table_pop_2016.insee,table_pop_2016.nom, table_pop_2016.pop_totale AS pop_2016,table_pop_2012.pop_totale AS pop_2012,(table_pop_2016.pop_totale-table_pop_2012.pop_totale) AS prog,(CAST(table_pop_2016.pop_totale AS float)-CAST(table_pop_2012.pop_totale AS float))/CAST(table_pop_2012.pop_totale as float)*100 as pourcentage_prog FROM (SELECT insee, nom, pop_totale FROM communes NATURAL JOIN population WHERE recensement = 2016) AS table_pop_2016 JOIN (SELECT insee, nom, pop_totale FROM communes NATURAL JOIN population WHERE recensement = 2012) AS table_pop_2012 ON table_pop_2016.insee=table_pop_2012.insee
+
+
+
+
+
+

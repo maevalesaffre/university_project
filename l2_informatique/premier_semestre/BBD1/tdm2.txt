@@ -1,0 +1,39 @@
+exo1
+q1-
+select insee,nom,superficie from communes order by superficie desc;
+
+select insee,nom from communes where nom like '%Lille%';
+
+select insee,substring(insee, 1,2) as "departement",nom from communes;
+
+select c.nom,p.recensement from communes c join population p on p.insee=c.insee order by c.nom desc, recensement asc;
+
+select p.insee, c.nom, p.pop_totale from communes c join population p on p.insee=c.insee where recensement=2016 order by pop_totale desc;
+
+select p.insee,c.nom,p.pop_totale, c.superficie, p.pop_totale/c.superficie as densite from communes c join population p on p.insee=c.insee where recensement=2016 order by densite desc;
+
+q2-
+select p.insee,c.nom,p.pop_totale, c.superficie, p.pop_totale/c.superficie as densite from communes c natural join population p where recensement=2016 order by densite desc;
+
+q3-
+select nom, nom_station,lon,lat from communes natural join stations order by nom;
+
+select nom, nom_station,lon,lat from communes left join stations on communes.insee=stations.insee order by nom;
+
+q4 
+select count(valeur) as nombre_total from mesures_mensuelles;
+
+select avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum from mesures_mensuelles where code_polluant=7;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum from mesures_mensuelles where code_polluant=7 group by code_station;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station as nom from mesures_mensuelles natural join stations where code_polluant=7 group by code_station,nom_station;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station as nom from mesures_mensuelles natural join stations where code_polluant=6001 group by code_station,nom_station;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station as nom from mesures_mensuelles natural join stations where code_polluant=6001 group by code_station, nom_station having avg(valeur)>>10;
+
+select code_station, code_polluant, count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum from mesures_mensuelles natural join stations group by code_station, code_polluant order by code_polluant;
+
+select count(valeur) as nombre_total, avg(valeur) as moyenne, max(valeur)as maximum, min(valeur) as minimum, nom_station, nom_polluant from mesures_mensuelles natural join stations natural join polluants group by code_station, code_polluant, nom_station, nom_polluant order by code_polluant;
+

@@ -1,0 +1,81 @@
+Q3.1
+n=4
+
+u=[0 0 0 0] <-- 1 seule op de attribution
+v=[0 0 0 0] <-- 1 seule op de attribution
+
+u=[*1* 0 0 0 ] (à la l4 on avait u[0]=1)  <-- 1 seule op de attribution
+
+i=1 (en allant jusqu'à 3 .. range (1,4))
+    v=[*1* 0 0 0] (v[0]=1) <-- 1 op
+    j=1 (en allant jusqu'à 1 ... range (1,2))
+        v=[1 *1* 0 0]  (v[j]=u[j-1]+u[j])  <-- 1 op
+
+    u=[*1 1* 0 0]  (selon les l9 et l10)   <-- 2 op
+
+i=2
+    v=[*1* 1 0 0] (v[0]=1 l6)  <-- 1 op
+    j=1 (en allant jusqu'à 2 ... range(1,3))
+        v=[1 *2* 0 0]    (v[1]=u[0]+u[1]=2) <-- 1 op
+    j=2
+        v=[1 2 *1* 0]    (v[2]=u[1]+u[2]=1) <-- 1 op
+    u=[*1 2 1* 0]  (selon les l9 et l10)    <-- 3 op
+
+i=3
+    v=[*1* 2 1 0] (v[0]=1 l6)               <-- 1 op
+    j=1 (en allant jusqu'à 3 ... range(1,4))
+        v=[1 *3* 0 0]    (v[1]=u[0]+u[1]=3) <-- 1 op
+    j=2
+        v=[1 3 *3* 0]    (v[2]=u[1]+u[2]=3) <-- 1 op
+    j=3
+        v=[1 3 3 *1*]    (v[3]=u[2]+u[3]=1) <-- 1 op
+    
+    u=[* 1 3 3 1 *] (selont les l9 et l10)  <-- 4 op
+
+Q3.2 & 3.3
+compter pour n=4 -> 21 attributions et 10 additions sur u
+voir Powerpoint sur GIT
+
+Q3.4
+si on fait 10^9 operations par seconde, pour quelle valeur de n 
+on peut réaliser toutes les opérations en seconde.
+
+1s ... 10^9 opérations = n^2+n-2 + n^2/2 - n/2 = 3*n^2/2+3*n/2-2
+n = 10^4 + .. -> 3*10^8/2+3*10^4/2-2
+n = 10^5 + .. -> 3*10^10 ...
+
+-> un n ayant un ordre de grandeur de 4 peut être résolu en moins d'une seconde
+-> un n ayant un ordre de grandeur de 5 ne peut pas être résolu en moins d'une seconde
+
+
+attention quand même.
+
+f(n)=n^2+10^6*n+1 -> la complexité est de l'ordre de n^2, pour des grandes valeurs de n
+le nombre d'opération grandit de manière quadratique
+mais ici n=10^4 ne passera pas en 10^9 operations, car le facteur de n est
+lui même assez important.
+
+Dans cet exemple, l'ordre de grandeur est plutôt 3.
+
+Q3.5
+n -> temps x
+m=1000*n -> temps ? 
+
+- le même ?
+- le temps x*1000 ? 
+- les temps x*1000*1000 ... ?
+
+f(n)=a*n^2+b*n+c <-- cette formule couvre soit le nombre d'attributions,
+soit le nombre d'additions, soit le nombre conjoint des deux. bien évidement,
+avec des valeurs specifiques pour a, b et c.
+pour f(n) on prends x secondes... donc si on arrive à exprimer
+f(1000*n) en fonction de f(n) on a la réponse (approx.) à notre question.
+
+f(1000*n)=a*(1000*n)^2 + b*(1000*n) + c
+         =1000^2*a*n^2 + 1000*b*n + c < 1000^2*(a*n^2+b*n+c)
+         < 1000^2*f(n)
+
+m=10*n -> 10*10*x
+m=100*n -> 100*100*x
+
+Une instance de 1000 fois plus grande prendra approximativement 1000^2 plus de temps qu'une instance de taille n.
